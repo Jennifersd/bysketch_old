@@ -1,0 +1,10 @@
+local_settings.py
+*.pyc
+__pycache__
+myvenv
+db.sqlite3
+.DS_Store
+.project
+.pydevproject
+staticfiles
+
