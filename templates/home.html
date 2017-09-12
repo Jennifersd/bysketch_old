@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+    Home
+{% endblock %}
 
 {% block content %}
 <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -14,44 +19,16 @@
       <div class="container">
 
         <div class="row">
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card">
-            <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
+        		{% for item in products %}
+	          <div class="card">
+	          	<img class="card-img-top" src='{% if item.image %}{{ item.image.url }} {% else %}{% static "img/no_image.png" %} {% endif %}' alt="{{item.name}}">
+	            <div class="card-body">
+		            <h2 class="card-title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h2>
+		            <p class="card-text">{{item.description|truncatechars:100}}</p>
+		            <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Buy</a>
+		        </div>
+	          </div>
+          	{% endfor %}
         </div>
 
       </div>

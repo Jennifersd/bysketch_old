@@ -1,12 +1,11 @@
 from django.shortcuts import render
 
-#from tutorials.models import TutorialSeries
+from shop.models import Product
 
 #View home Page
 def home(request):
-    # series = TutorialSeries.objects.all() Show all   y [:2] indica la cantidad de item a mostrar
+    products = Product.objects.all() #Show all   y [:2] indica la cantidad de item a mostrar
     #series = TutorialSeries.objects.filter(archived=False).order_by('-id')[:3]
     template = 'home.html'
-    context = {}
-    #context = {'series': series}
+    context = {'products': products}
     return render(request, template, context)
