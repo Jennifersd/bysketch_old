@@ -2,6 +2,9 @@
 {% load static %}
 {% load staticfiles %}
 
+{% load bootstrap4 %}
+
+
 {% block title %}
     {% if category %}{{ category.title }}{% else %}Products{% endif %}
 {% endblock %}
@@ -29,11 +32,15 @@
                         </div>
                         <p>{{ product.description }}</p>
                         <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
-                        
+                        <form action='{% url "cart:cart_add" product.id %}' method="post">
+                            {% csrf_token %}
+                            {% bootstrap_form cart_product_form %}
+                            {% buttons %}
                                 <button type="submit" class="btn btn-success btn-product">
                                     <span class="glyphicon glyphicon-shopping-cart"></span> Add to cart
                                 </button>
-                            
+                            {% endbuttons %}
+                        </form>
                         <p></p>
                     </div>
                 </div>

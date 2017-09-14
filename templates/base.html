@@ -1,5 +1,7 @@
 {% load static %}
 {% load staticfiles %}
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,6 +19,8 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/jumbotron.css' %}" rel="stylesheet">
     <link href="{% static 'css/album.css' %}" rel="stylesheet">
+    
+    
   </head>
 
   <body>
@@ -53,7 +57,25 @@
         </form>
       </div>
     </nav>
-
+	<div class="container">
+	
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {# call __len__ #}
+            {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                    Your cart:
+                    <a href="{% url "cart:cart_detail" %}">
+                        {# If total_items is 1, the output will be 1 item. #}
+                        {# If total_items is 2, the output will be 2 items. #}
+                        {{ total_items }} item{{ total_items|pluralize }},
+                        ${{ cart.get_total_price }}
+                    </a>
+                {% else %}
+                    Your shopping cart is empty.
+                {% endif %}
+            {% endwith %}
+    </div>
+	</div>
     {% block content %}
     {% endblock %}
 	<div class="container">

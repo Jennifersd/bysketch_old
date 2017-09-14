@@ -38,7 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
+    'bootstrap4',
     'shop',
+    'cart',
+    'orders',
+    'paypal.standard.ipn',
+    'payment',
+    'accounts',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -64,12 +71,28 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'bysketch.wsgi.application'
+
+#accounts
+LOGIN_REDIRECT_URL = 'home'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'thegadgetsbx@gmail.com'
+EMAIL_HOST_PASSWORD = 'thegadgetsbox1008'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# django-paypal settings
+PAYPAL_RECEIVER_EMAIL = 'jennifersduenas-facilitator@gmail.com'
+PAYPAL_TEST = True
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -83,6 +106,69 @@ DATABASES = {
         'PASSWORD': '1j3s5d6%',
         'HOST': 'localhost',
         'PORT': '',
+    }
+}
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    # 'filters': {
+    #     'special': {
+    #         '()': 'project.logging.SpecialFilter',
+    #         'foo': 'bar',
+    #     },
+    #     'require_debug_true': {
+    #         '()': 'django.utils.log.RequireDebugTrue',
+    #     },
+    # },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            # 'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        # 'file': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.FileHandler',
+        #     'filename': 'mylog_test.log',
+        #     'formatter': 'verbose'
+        # },
+
+        # 'mail_admins': {
+        #     'level': 'ERROR',
+        #     'class': 'django.utils.log.AdminEmailHandler',
+        #     'filters': ['special']
+        # }
+    },
+    'loggers': {
+        # 'django': {
+        #     'handlers': ['console'],  # console or file
+        #     'propagate': True,
+        #     'level': 'DEBUG',
+        # },
+        # 'django.request': {
+        #     'handlers': ['console'],
+        #     'level': 'DEBUG',
+        #     'propagate': False,
+        # },
+        # For performance reasons, SQL logging is only enabled when settings.DEBUG is set to True
+        # ref. https://docs.djangoproject.com/en/1.11/topics/logging/#django-db-backends
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': False,
+            'level': 'DEBUG',
+        },
+
     }
 }
 
@@ -141,6 +227,7 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CART_SESSION_ID = 'cart'
 
 try:
 
@@ -149,3 +236,4 @@ try:
 except ImportError:
 
     print('Local settings failed')
+    
