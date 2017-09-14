@@ -28,6 +28,8 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 
+AUTH_USER_MODEL = 'auth.User'
+
 # Application definition
 
 INSTALLED_APPS = [

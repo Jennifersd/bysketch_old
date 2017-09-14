@@ -1,6 +1,7 @@
 from django.db import models
 
 
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -11,7 +12,7 @@ class Order(models.Model):
     #first_name = models.CharField(max_length=50)
     #last_name = models.CharField(max_length=50)
     #email = models.EmailField()
-    user = models.OneToOneField(User, default=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=True)
     address = models.CharField(max_length=250)
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
@@ -20,7 +21,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return self.user.username
+        return self.user
 
     class Meta:
         ordering = ('-created',)
