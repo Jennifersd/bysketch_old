@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '))51vz9d!720#)50($ddaiiccf9a4d@fgv8qcwn7s8#*wc%-rp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -105,7 +105,7 @@ DATABASES = {
         'USER': 'bysketch',
         'PASSWORD': '1j3s5d6%',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -204,6 +204,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Static files (CSS, JavaScript, Images)

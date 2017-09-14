@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-
 from cart.cart import Cart
 from .forms import OrderCreateForm
 from .models import OrderItem
 from .task import order_created
+from django.contrib.auth.models import User
 
 
 def order_create(request):
@@ -11,6 +11,7 @@ def order_create(request):
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
+            user = request.user
             order = form.save()
             for item in cart:
                 OrderItem.objects.create(order=order,
