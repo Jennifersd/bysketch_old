@@ -38,7 +38,8 @@ def order_create(request):
     try:
         order = request.user.order
     except Order.DoesNotExist:
-        order = Order.objects.create(user=request.user)
+        #order = Order.objects.create(user=request.user)
+        user_order = Order.objects.get(user=request.user)
     return render(request,
                   'orders/order/create.html',
                   {'cart': cart, 'form': form })
