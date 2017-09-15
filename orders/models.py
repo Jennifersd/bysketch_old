@@ -4,6 +4,8 @@ from django.db import models
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from shop.models import Product
 
@@ -12,7 +14,8 @@ class Order(models.Model):
     #first_name = models.CharField(max_length=50)
     #last_name = models.CharField(max_length=50)
     #email = models.EmailField()
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name='order')
+    #user = models.ForeignKey(User, unique=True)
     address = models.CharField(max_length=250)
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
@@ -22,6 +25,12 @@ class Order(models.Model):
 
     def __unicode__(self):
         return self.user
+
+    @receiver(post_save, sender=User)
+    def create_order_send(sender, instance, created, **kwargs):
+        if created:
+            Order.objects.create(user=instance)
+            instance.order.save()
 
     class Meta:
         ordering = ('-created',)
