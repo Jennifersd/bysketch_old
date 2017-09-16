@@ -29,12 +29,15 @@ def order_create(request):
             cart.clear()
             order_created(order.id, request)
             request.session['order_id'] = order.id
+            #order_id = order.id
             
             # redirect to the payment
             return redirect('payment:process')
 
     else:
         form = OrderCreateForm(instance=user_order)
+        #request.session.modified = True
+       
     try:
         order = request.user.order
     except Order.DoesNotExist:

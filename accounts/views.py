@@ -121,11 +121,3 @@ def activate(request, uidb64, token):
         return render(request, template)
     
 
-
-
-
-
-
-
-
-
