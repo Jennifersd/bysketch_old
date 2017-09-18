@@ -9,9 +9,15 @@ from django.contrib.auth.models import User
 def order_create(request):
     cart = Cart(request)
     #user = User.objects.get(username=request.user)
-    user_order = Order.objects.get(user=request.user)    
+    user = request.user
+
+    #user_order = Order.objects.get(user=request.user)  
+    #try:
+    #    user_order = Order.objects.get(user=request.user) 
+    #except Order.DoesNotExist:
+    #    user_order = User.objects.filter(username=username).first()
     if request.method == 'POST':
-        form = OrderCreateForm(request.POST, instance=user_order)
+        form = OrderCreateForm(request.POST, instance=user)
         #form = OrderCreateForm(request.POST, instance=request.user.order)
         if form.is_valid():
             
@@ -35,20 +41,13 @@ def order_create(request):
             return redirect('payment:process')
 
     else:
-        form = OrderCreateForm(instance=user_order)
+        form = OrderCreateForm(instance=user)
         #request.session.modified = True
        
-    try:
-        order = request.user.order
-    except Order.DoesNotExist:
-        #order = Order.objects.create(user=request.user)
-        user_order = Order.objects.get(user=request.user)
+    
     return render(request,
                   'orders/order/create.html',
                   {'cart': cart, 'form': form })
-
-
-
 
 
 #  self.object.created_by = self.request.user
