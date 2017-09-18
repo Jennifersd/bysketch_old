@@ -10,31 +10,17 @@ from django.contrib.auth.models import User
 def order_create(request):
     cart = Cart(request)
     #user = User.objects.get(username=request.user)
-<<<<<<< HEAD
-    user = request.user
-
-    #user_order = Order.objects.get(user=request.user)  
-    #try:
-    #    user_order = Order.objects.get(user=request.user) 
-    #except Order.DoesNotExist:
-    #    user_order = User.objects.filter(username=username).first()
-    if request.method == 'POST':
-        form = OrderCreateForm(request.POST, instance=user)
-=======
 
     #username = None
     #if request.user.is_authenticated():
     #    username = request.user.username
     #user_order = username
-   
-    
-    
+
    
     if request.method == 'POST':
 
         form = OrderCreateForm(request.POST,  instance=request.user)
         #form = OrderCreateForm(request.POST, instance=user_order)
->>>>>>> 69fb87fb0f4f13e6656d63728b4dd4f1e6e475e9
         #form = OrderCreateForm(request.POST, instance=request.user.order)
         if form.is_valid():
             order.users.add(form.request.user)
@@ -59,20 +45,6 @@ def order_create(request):
             return redirect('payment:process')
 
     else:
-<<<<<<< HEAD
-        form = OrderCreateForm(instance=user)
-        #request.session.modified = True
-       
-    
-    return render(request,
-                  'orders/order/create.html',
-                  {'cart': cart, 'form': form })
-
-
-#  self.object.created_by = self.request.user
- #       self.object.save()
-=======
-
         form = OrderCreateForm(instance=request.user)
         #form = OrderCreateForm(instance=user_order)
         #request.session.modified = True
@@ -87,5 +59,3 @@ def order_create(request):
                   {'cart': cart, 'form': form})
 
 
-
->>>>>>> 69fb87fb0f4f13e6656d63728b4dd4f1e6e475e9
