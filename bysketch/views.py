@@ -1,9 +1,9 @@
 from django.shortcuts import render
-
-from shop.models import Product
+from shop import views
+from shop.models import Product, Category
 
 #View home Page
-def home(request):
+def home(request, category_slug=None):
     products = Product.objects.all() #Show all   y [:2] indica la cantidad de item a mostrar
     #series = TutorialSeries.objects.filter(archived=False).order_by('-id')[:3]
     

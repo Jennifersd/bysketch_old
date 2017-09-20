@@ -20,15 +20,16 @@ from django.conf.urls.static import static
 
 from .views import home
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home, name="home"),
-    url(r'^shop/', include('shop.urls', namespace='shop')),
-    url(r'^cart/', include('cart.urls', namespace='cart')),
-    url(r'^orders/', include('orders.urls', namespace='orders')),
-    url(r'^payment/', include('payment.urls', namespace='payment')),
+    url(r'^shop/', include('shop.urls', namespace='shop', app_name='shop')),
+    url(r'^cart/', include('cart.urls', namespace='cart', app_name='cart')),
+    url(r'^orders/', include('orders.urls', namespace='orders', app_name='orders')),
+    url(r'^payment/', include('payment.urls', namespace='payment', app_name='payment')),
     url(r'^paypal/', include('paypal.standard.ipn.urls')),
-    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts', app_name='accounts')),
 ]
 
 
