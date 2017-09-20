@@ -32,7 +32,9 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    document = models.FileField(upload_to='downloads/%Y/%m/%d', blank=True)
+    free = models.BooleanField(default=False)
+    support = models.BooleanField(default=False)
     class Meta:
         ordering = ('name',)
         index_together = (('id', 'slug'),)

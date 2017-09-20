@@ -31,6 +31,7 @@
                             </div>
                         </div>
                         <p>{{ product.description }}</p>
+                        <p>{{ product.updated }}</p>
                         <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
                         <form action='{% url "cart:cart_add" product.id %}' method="post">
                             {% csrf_token %}
@@ -42,6 +43,14 @@
                             {% endbuttons %}
                         </form>
                         <p></p>
+                        {% if product.free %}
+                        <a class="btn btn-success btn-product" href="{{ product.document.url }}">Free Download</a>
+                        {% endif %}
+                        
+                        {% if not product.free and product.support %}
+                        		<p>Premium support</p>
+                        {% endif %}
+                        
                     </div>
                 </div>
             </div>
